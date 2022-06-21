@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>muro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <style>
+            body{margin:0;padding:0;width:100%;height:100%;}
+            body[editing=true] #static-text,body:not([editing=true]) #editing{display:none;}
+            #main-box{margin:30px auto;padding:30px;max-width:600px}
+            textarea{width:100%}
+        </style>
+        <!--<script src="https://unpkg.com/vue@next"></script>-->
+        <script src="https://www.games-in-action.eu/notes/xtext.js"></script>
+        <script>
+            function set_text(text){
+                document.querySelector("#static-text").innerHTML=xtext.o(text);
+                document.querySelector("#new-text").actual_text=text;
+            }
+            function m(d){
+                //https://stackoverflow.com/questions/9899372/pure-javascript-equivalent-of-jquerys-ready-how-to-call-a-function-when-t
+                if (document.readyState === "complete")set_text(d.text);else document.addEventListener("DOMContentLoaded", function(){set_text(d.text)});
+            }
+            function editing(v){
+                activate_esc();
+                document.body.setAttribute("editing",v);
+                if(v){
+                    var el = document.querySelector("#new-text");
+                    el.value = el.actual_text;
+                    el.focus();
+                }
+            }
+            function activate_esc(){
+                //https://stackoverflow.com/questions/3369593/how-to-detect-escape-key-press-with-pure-js-or-jquery
+                document.body.onkeydown=function(e){
+                    if(e.key === "Escape"){
+                        editing(false);
+                        var el = document.querySelector("#new-text")
+                        el.value = el.actual_text;
+                    }
+                }
+            }
+            async function update(v){
+                var t = await save_text(v);
+                if(t.text)set_text(t.text);
+                editing(false);
+            }
+            async function save_text(t){
+                //https://stackoverflow.com/questions/29775797/fetch-post-json-data
+                return (async () => {
+                    const rawResponse = await fetch('https://games-in-action.firebaseio.com/muro.json', {
+                        method: 'PUT',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({text: t})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    return content;
+                    })();
+            }
+        </script>
+        <script src="https://games-in-action.firebaseio.com/muro.json?callback=m"></script>
+    </head>
+    <body ondblclick="if(event.target.nodeName!='TEXTAREA')editing(true)">
+        <div id="main-box">
+            <div id=static-text v-html=text></div>
+            <div id=editing>
+                <textarea name="" id="new-text" rows="50"
+                onblur="update(this.value)"></textarea>
+            </div>
+        </div>
+    </body>
+</html>
