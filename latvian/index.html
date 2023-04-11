@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/197/197605.png">
+    <title>Latvian</title>
+    <script src="https://unpkg.com/petite-vue" defer init></script>
+    <script>
+        function get_filename(base_name, index) {
+            const base = 'https://miro.id.lv/latvian/files/';
+            return base + base_name + ('0' + index).slice(-2) + '.pdf'
+        }
+    </script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        #latviesu-valoda-header {
+            background-image: url(./images/latviesu-valoda-studentiem.png);
+            width: 100%;
+            max-width: 500px;
+            height: 140px;
+            background-size: cover;
+            position: relative;
+            cursor: pointer;
+        }
+
+        body {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #content {
+            padding: 3px 10px;
+        }
+    </style>
+</head>
+
+<body v-scope="{ base: 'https://miro.id.lv/latvian/files/' }" v-cloak>
+    <div id="latviesu-valoda-header" onclick="window.open('https://valoda.lv/games/latviesu-valoda-studentiem/')"></div>
+    <div id="content">
+        <div v-scope="{ items: Array(20) }">
+            <!--https://stackoverflow.com/questions/8043026/how-to-format-numbers-by-prepending-0-to-single-digit-numbers-->
+            <p v-for="i,index in items"><a :href="get_filename('Naua', index+1)" target="_blank">Lesson
+                    {{index+1}}</a></p>
+        </div>
+    </div>
+
+</body>
+
+</html>
