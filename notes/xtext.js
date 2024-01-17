@@ -193,8 +193,6 @@ xtext = {
     },
     format_text: function (s) {
         if (!s) return s;
-        var del = this.cut_out_between(s, "```");
-        s = del[0];
         var del = this.cut_out_between(s, "```", "3");
         s = del[0];
         var cut_array = del[1].map((x) => {
