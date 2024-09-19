@@ -147,7 +147,7 @@ xtext = {
             .replace(/<--/g, "⟵")
             .replace(/c->/g, "⟳")
             .replace(/d->/g, "⟲")
-            .replace(/\+->/g, "⟴")
+            .replace(/ \+->/g, " ⟴")
             .replace(/<=>/g, "⇔")
             .replace(/=>/g, "⇒")
             .replace(/<=/g, "⇐")
