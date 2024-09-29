@@ -95,10 +95,9 @@ xtext = {
         );
     },
     shorten_links : function (s) {
-        s = s.replace(/(ali)(express\.com)/g,"$1<nv>$2</nv>");
-        s = s.replace(/(f)(ace)(b)(ook\.com)/g,"$1<nv>$2</nv>$3<nv>$4</nv>");
+        s = s.replace(/(ali)(express\.com\/item)\//g,"<sv>$1</sv><nv>$2</nv><lv>/</lv>");
+        s = s.replace(/(f)(ace)(b)(ook\.com)\//g,"<sv>$1<nv>$2</nv>$3</sv><nv>$4</nv><lv>/</lv>");
         s = s.replace(/>(https:\/\/(www\.|))/g,"><nv>$1</nv>");
-        s = s.replace(/(\.com\/item)\//g,"<nv>$1</nv>/");
         s = s.replace(/(\.html)</g,"<nv>$1</nv><");
         return s;
     },
