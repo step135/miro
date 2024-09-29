@@ -13,7 +13,6 @@
         </style>
         <!--<script src="https://unpkg.com/vue@next"></script>-->
         <script src="https://www.games-in-action.eu/notes/xtext.js"></script>
-        <script src="https://www.games-in-action.eu/notes/cutext.js" defer></script>
         <script>
             function set_text(text){
                 document.querySelector("#static-text").innerHTML=xtext.o(text);
@@ -43,7 +42,7 @@
                 }
             }
             async function update(v){
-                v = cutext.optimize_text(v);
+                v = xtext.optimize_text(v);
                 var t = await save_text(v);
                 if(t.text)set_text(t.text);
                 editing(false);
