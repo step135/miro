@@ -10,6 +10,29 @@
             body[editing=true] #static-text,body:not([editing=true]) #editing{display:none;}
             #main-box{margin:30px auto;padding:30px;max-width:600px}
             textarea{width:100%}
+
+            l {
+                color: blueviolet;
+                cursor: pointer;
+                word-wrap: break-word;
+            }
+            l:active {
+                color: blue;
+            }
+            nv {
+                position: relative;
+                z-index: -1;
+                opacity: 0;
+                width: 0;
+                display: inline-block;
+                white-space: nowrap;
+            }
+            sv {
+                color: steelblue;
+            }
+            lv {
+                color: lightgray;
+            }
         </style>
         <!--<script src="https://unpkg.com/vue@next"></script>-->
         <script src="https://www.games-in-action.eu/notes/xtext.js"></script>
