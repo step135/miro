@@ -53,6 +53,10 @@
                     el.value = "\n\n" + el.actual_text;
                     el.focus();
                     el.setSelectionRange(0, 0);
+                    window.scrollTo({
+                      top: 0,
+                      behavior: 'smooth'
+                    });
                 }
             }
             function activate_esc(){
