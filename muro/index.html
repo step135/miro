@@ -38,6 +38,7 @@
         <script src="https://www.games-in-action.eu/notes/xtext.js"></script>
         <script>
             function set_text(text){
+                if(document.querySelector("#new-text").actual_text === text) return;
                 document.querySelector("#static-text").innerHTML=xtext.o(text);
                 document.querySelector("#new-text").actual_text=text;
             }
@@ -96,7 +97,8 @@
             document.addEventListener("visibilitychange", function() {
                 if (!document.hidden) {
                     localStorage.setItem('scrollY', window.scrollY);
-                    location.reload();
+                    //location.reload();
+                    load_content();
                 }
             });
 
@@ -107,6 +109,12 @@
                     localStorage.removeItem('scrollY'); // Remove the stored value
                 }
             };
+
+            function load_content(){
+                var s = document.createElement("script");
+                s.src = "https://games-in-action.firebaseio.com/muro.json?callback=m";
+                document.body.appendChild(s);
+            }
         </script>
         <script src="https://games-in-action.firebaseio.com/muro.json?callback=m"></script>
     </head>
