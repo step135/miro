@@ -92,6 +92,21 @@
                     return content;
                     })();
             }
+
+            document.addEventListener("visibilitychange", function() {
+                if (!document.hidden) {
+                    localStorage.setItem('scrollY', window.scrollY);
+                    location.reload();
+                }
+            });
+
+            window.onload = function() {
+                const scrollY = localStorage.getItem('scrollY');
+                if (scrollY) {
+                    window.scrollTo(0, parseInt(scrollY, 10)); // Restore the scroll position
+                    localStorage.removeItem('scrollY'); // Remove the stored value
+                }
+            };
         </script>
         <script src="https://games-in-action.firebaseio.com/muro.json?callback=m"></script>
     </head>
