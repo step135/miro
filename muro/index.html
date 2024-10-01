@@ -50,8 +50,9 @@
                 document.body.setAttribute("editing",v);
                 if(v){
                     var el = document.querySelector("#new-text");
-                    el.value = el.actual_text;
+                    el.value = "\n\n" + el.actual_text;
                     el.focus();
+                    el.setSelectionRange(0, 0);
                 }
             }
             function activate_esc(){
