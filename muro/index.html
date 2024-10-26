@@ -119,6 +119,7 @@
             };
 
             function load_text(url, el){
+                url += (url.indexOf("?")>-1?"&":"?") + Date();
                 let xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == XMLHttpRequest.DONE) {
