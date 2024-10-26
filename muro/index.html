@@ -33,6 +33,10 @@
             lv {
                 color: lightgray;
             }
+
+            #ali:not(:empty) {
+                color: tomato;
+            }
         </style>
         <!--<script src="https://unpkg.com/vue@next"></script>-->
         <script src="https://www.games-in-action.eu/notes/xtext.js"></script>
@@ -103,7 +107,6 @@
             }
 
             document.addEventListener("visibilitychange", refresh);
-
             window.addEventListener("focus", refresh);
 
             window.onload = function() {
@@ -119,7 +122,8 @@
                 xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                     if (xmlhttp.status == 200) {
-                        document.getElementById(el).innerHTML = xmlhttp.responseText;
+                        var text = xmlhttp.responseText == "null" ? "" : xmlhttp.responseText
+                        document.getElementById(el).innerHTML = text;
                     }
                     else if (xmlhttp.status == 400) {
                         alert('There was an error 400');
