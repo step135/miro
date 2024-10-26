@@ -94,13 +94,17 @@
                     })();
             }
 
-            document.addEventListener("visibilitychange", function() {
+            function refresh() {
                 if (!document.hidden) {
                     localStorage.setItem('scrollY', window.scrollY);
                     //location.reload();
                     load_content();
                 }
-            });
+            }
+
+            document.addEventListener("visibilitychange", refresh);
+
+            window.addEventListener("focus", refresh);
 
             window.onload = function() {
                 const scrollY = localStorage.getItem('scrollY');
