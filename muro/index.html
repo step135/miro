@@ -110,16 +110,37 @@
                 }
             };
 
+            function load_text(url, el){
+                let xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                    if (xmlhttp.status == 200) {
+                        document.getElementById(el).innerHTML = xmlhttp.responseText;
+                    }
+                    else if (xmlhttp.status == 400) {
+                        alert('There was an error 400');
+                    }
+                    else {
+                        alert('something else other than 200 was returned');
+                    }
+                  }
+                };
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+            }
+
             function load_content(){
                 var s = document.createElement("script");
                 s.src = "https://games-in-action.firebaseio.com/muro.json?callback=m";
                 document.body.appendChild(s);
+                load_text("https://ali.5152.workers.dev", "ali")
             }
         </script>
         <script src="https://games-in-action.firebaseio.com/muro.json?callback=m"></script>
     </head>
     <body ondblclick="if(event.target.nodeName!='TEXTAREA')editing(true)">
         <div id="main-box">
+            <div id=ali></div>
             <div id=static-text v-html=text></div>
             <div id=editing>
                 <textarea name="" id="new-text" rows="50"
