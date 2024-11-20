@@ -46,7 +46,7 @@
             }
         </style>
         <!--<script src="https://unpkg.com/vue@next"></script>-->
-        <script src="https://www.games-in-action.eu/notes/xtext.js"></script>
+        <script src="https://miro.id.lv/notes/xtext.js"></script>
         <script>
             function set_text(text){
                 if(document.querySelector("#new-text").actual_text === text) return;
@@ -90,7 +90,7 @@
             async function save_text(t){
                 //https://stackoverflow.com/questions/29775797/fetch-post-json-data
                 return (async () => {
-                    const rawResponse = await fetch('https://games-in-action.firebaseio.com/muro.json', {
+                    const rawResponse = await fetch('https://notes.5152.workers.dev/muro.json', {
                         method: 'PUT',
                         headers: {
                         'Accept': 'application/json',
