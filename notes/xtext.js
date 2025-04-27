@@ -255,7 +255,11 @@ xtext = {
             if (si[i].indexOf("_") > -1 || si[i].indexOf("^") > -1) {
                 si[i] = si[i].replace(/(http|www|@|\/\/)(\S+)/g, "$1$2####");
                 si[i] = si[i].replace(
-                    /_([0-9a-zA-Z]+)_?(?!(\S*####|[=,?!:;]))/g,
+                    /_([0-9]+)_?(?!(\S*####|[=,?!:;]))/g,
+                    "<sub>$1</sub>"
+                );
+                si[i] = si[i].replace(
+                    /_([0-9][^0-9])?(?!(\S*####|[=,?!:;]))/g,
                     "<sub>$1</sub>"
                 );
                 si[i] = si[i].replace(
