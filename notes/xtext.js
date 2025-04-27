@@ -408,16 +408,16 @@ xtext = {
                 "facebook.com/$1"
             )
             .replace(
-                /(facebook\.com\/[^?\s/]+)\/?\?[^\s]*((groupid|profile_id)=[0-9]+)[^\s]*/g,
-                "$1?$2"
+                /(facebook\.com\/[^?\s/]+)(\/?\?[^\s]*)((groupid|profile_id|story_fbid|fbid|id)=[0-9]+)[^\s]*/g,
+                "$1$2$3"
             )
             .replace(
-                /(facebook\.com\/[^?\s]+)\?(?!groupid|profile_id)[^\s]+/g,
+                /(facebook\.com\/[^?\s]+)\?(?!groupid|profile_id|story_fbid|fbid|id)[^\s]+/g,
                 "$1"
             )
-            .replace(/(facebook\.com\/[^?\s]+)\/about[^\s]+/g, "$1")
+            .replace(/(facebook\.com\/[^?\s]+)\/about/g, "$1")
             .replace(
-                /(\?|&)(consent|sznclid|gclid|utm[^=]+|igshid|ref|wt_mc|si)=[^\s]+/g,
+                /(\?|&|\#)(consent|sznclid|fbclid|gclid|utm[^=]+|dop_[^=]+|igshid|ref|wt_mc|si|xmt|referer[^=]+|pid)=[^\s]+/g,
                 ""
             )
             .replace(/(https\:\/\/is\.cuni\.cz\S+)((tid)=[^&]+&?)/g, "$1")
