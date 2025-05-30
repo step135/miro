@@ -59,17 +59,22 @@
             }
             function editing(v){
                 activate_esc();
+                var scY = window.scrollY //after setting attribute it has upper bound
                 document.body.setAttribute("editing",v);
                 if(v){
                     var el = document.querySelector("#new-text");
                     el.value = "\n\n" + el.actual_text;
                     el.focus();
                     el.setSelectionRange(0, 0);
-                    window.scrollTo({
-                      top: 0,
+                    var el2 = document.querySelector("#editing");
+                    
+                    document.body.setAttribute("text-scroll", scY)
+                    el2.scrollIntoView({ behavior: "smooth", block: "start" });
+                    
+                } else window.scrollTo({
+                      top: document.body.getAttribute("text-scroll"),
                       behavior: 'smooth'
                     });
-                }
             }
             function activate_esc(){
                 //https://stackoverflow.com/questions/3369593/how-to-detect-escape-key-press-with-pure-js-or-jquery
