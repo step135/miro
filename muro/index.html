@@ -3,8 +3,18 @@
     <head>
         <title>muro</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script>
+            window.addEventListener('unhandledrejection', event => {
+                alert("Promise rejection: " + event.reason)
+            });
+
+            window.onerror = function(message, source, lineno, colno, error) {
+                alert(`Error: ${message} at ${source}:${lineno}:${colno}:${error}`) 
+                return false; // allow default handling as well
+            };
+        </script>
         <style>
             body{margin:0;padding:0;width:100%;height:100%;}
             body[editing=true] #static-text,body:not([editing=true]) #editing{display:none;}
@@ -53,6 +63,22 @@
         <!--<script src="https://unpkg.com/vue@next"></script>-->
         <script src="https://miro.id.lv/notes/xtext.js"></script>
         <script>
+            function supportsScrollToOptions() {
+                let supported = false;
+                try {
+                    window.scrollTo({
+                    top: 0,
+                    get behavior() {
+                        supported = true;
+                        return 'auto';
+                    }
+                    });
+                } catch (e) {
+                    // EdgeHTML or old browsers will throw or ignore options
+                }
+                return supported;
+            }
+
             function set_text(text){
                 if(document.querySelector("#new-text").actual_text === text) return;
                 document.querySelector("#static-text").innerHTML=xtext.o(text);
@@ -64,7 +90,9 @@
             }
             function editing(v){
                 activate_esc();
-                var scY = window.scrollY //after setting attribute it has upper bound
+                var scY = window.scrollY; //after setting attribute it has upper bound
+                var st = document.body.getAttribute("text-scroll");
+                
                 document.body.setAttribute("editing",v);
                 if(v){
                     var el = document.querySelector("#new-text");
@@ -77,10 +105,10 @@
                     document.body.setAttribute("text-scroll", scY);
                     el2.scrollIntoView({ behavior: "smooth", block: "start" });
                     
-                } else window.scrollTo({
-                      top: document.body.getAttribute("text-scroll"),
+                } else supportsScrollToOptions() ? window.scrollTo({
+                      top: st,
                       behavior: 'smooth'
-                    });
+                    }) : window.scrollTo(0, st);
             }
             function activate_esc(){
                 //https://stackoverflow.com/questions/3369593/how-to-detect-escape-key-press-with-pure-js-or-jquery
@@ -170,7 +198,7 @@
             function load_content(){
                 load_muro();
                 load_text("https://ali.5152.workers.dev", "ali");
-                load_text("https://ali-ip.5152.workers.dev", "ali-ip");
+                load_text("https://ali-ip.5152.workers.dev", "ali-ip");   
             }
         </script>
         <!--<script src="https://notes.5152.workers.dev/muro.json?callback=m"></script>-->
