@@ -79,6 +79,8 @@
                 return supported;
             }
 
+            var is_modern_scroll = supportsScrollToOptions();
+
             function set_text(text){
                 if(document.querySelector("#new-text").actual_text === text) return;
                 document.querySelector("#static-text").innerHTML=xtext.o(text);
@@ -105,7 +107,7 @@
                     document.body.setAttribute("text-scroll", scY);
                     el2.scrollIntoView({ behavior: "smooth", block: "start" });
                     
-                } else supportsScrollToOptions() ? window.scrollTo({
+                } else is_modern_scroll ? window.scrollTo({
                       top: st,
                       behavior: 'smooth'
                     }) : window.scrollTo(0, st);
