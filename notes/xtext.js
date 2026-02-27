@@ -420,6 +420,7 @@ xtext = {
                 /(\?|&|\#)(consent|sznclid|fbclid|gclid|utm[^=]+|dop_[^=]+|igshid|ref|wt_mc|si|xmt|referer[^=]+|pid)=[^\s]+/g,
                 ""
             )
+            .replace(/(https\:\/\/is\.muni\.cz\S+)\?[^\s?!]+/g, "$1")
             .replace(/(https\:\/\/is\.cuni\.cz\S+)((tid)=[^&]+&?)/g, "$1")
             .replace(/(https\:\/\/is\.cuni\.cz\S+)((id)=[^&]+&?)/g, "$1")
             .replace(/(https\:\/\/is\.cuni\.cz\S+)((dlpar)=[^&]+&?)/g, "$1")
