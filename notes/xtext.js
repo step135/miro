@@ -431,8 +431,8 @@ xtext = {
                 "google.com/search?q=$1"
             )
             .replace(
-                /(\/[a-z.]+\.)(aliexpress\.com|ebay\.com|banggood\.com|google\.com)/g,
-                "/$2"
+                /\/(?!docs\.|maps\.)(?:[a-z.]+\.)(aliexpress\.com|ebay\.com|banggood\.com|google\.com)/g,
+                "/$1"
             )
             .replace(/(www\.|m\.)facebook\.com/g, "fb.com")
             .replace(/(twitter\.com.+)\?\S+/g, "$1")
