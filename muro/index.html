@@ -69,7 +69,7 @@
                 else window.open('https://www.games-in-action.eu/l.html?url=' + encodeURIComponent(url))   
             }
 
-            function copy_to_clipboard() {
+            function copy_to_clipboard(url) {
                 var tg = event.target
                 tg.classList.add('to_copy')
                 navigator.clipboard.writeText(url).then(() => {
