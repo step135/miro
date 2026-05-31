@@ -63,6 +63,29 @@
         <!--<script src="https://unpkg.com/vue@next"></script>-->
         <script src="https://miro.id.lv/notes/xtext.js"></script>
         <script>
+            function clicked() {
+                var url = event.target.textContent.replace(/<[^<>]>/g, "")
+                if(url.includes('express.com')) copy_to_clipboard(url)
+                else window.open('https://www.games-in-action.eu/l.html?url=' + encodeURIComponent(url))   
+            }
+
+            function copy_to_clipboard() {
+                var tg = event.target
+                tg.classList.add('to_copy')
+                navigator.clipboard.writeText(url).then(() => {
+                    console.log('Copied!')
+                    tg.classList.remove('to_copy')
+                })
+                .catch(err => console.error("Error copying: ", err));
+            }
+        </script>
+        <style>
+            .to_copy {
+                color: white;
+                transition: none !important;
+            }
+        </style>
+        <script>
             function supportsScrollToOptions() {
                 let supported = false;
                 try {
