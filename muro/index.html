@@ -72,6 +72,7 @@
             function copy_to_clipboard(url) {
                 var tg = event.target
                 tg.classList.add('to_copy')
+                tg.offsetWidth
                 navigator.clipboard.writeText(url).then(() => {
                     console.log('Copied!')
                     tg.classList.remove('to_copy')
